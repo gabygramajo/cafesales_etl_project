@@ -1,3 +1,34 @@
-# enviroment
+# --- Python Basics ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Distribución y Empaquetado ---
+build/
+dist/
+*.egg-info/
+.eggs/
+cafesales_etl_project.egg-info/
+
+# --- Entornos Virtuales ---
+# Nombres comunes para venvs
+venv/
+env/
+.venv/
 .env
-.env/
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints/
+
+# --- IDEs y Editores ---
+.vscode/
+.idea/
+
+
+# --- Archivos del Sistema Operativo ---
+.DS_Store
+Thumbs.db
+
+# --- Variables de Entorno ---
+.env
+.env.local
