@@ -23,5 +23,14 @@ cafe_etl_project/
 │   └── final/           # Tablas dimensionales (Parquet/CSV)
 │
 ├── notebooks/           # Experimentación y EDA
+│   └── 01_eda_ingestion.ipynb
+│
 ├── src/                 # Código fuente productivo (ETL functions)
+│   └── etl_functions.py
+│
+├── .gitignore
+├── main.py
+├── requirements.txt
+├── setup.py
 └── README.md            # Documentación del proyecto
+```
