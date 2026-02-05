@@ -86,3 +86,53 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     logging.info(f"Limpieza completada. Nulos en fechas: {df_clean['transaction_date'].isna().sum()}")
     
     return df_clean
+
+# La imputación de datos es el método para completar la información faltante o no disponible en un conjunto de datos con otros números.
+def impute_data(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Rellena valores nulos usando lógica de negocio y elimina registros irrecuperables.
+    
+    :param df: DataFrame limpio (output de clean_data).
+    :return: DataFrame listo para ingeniería de características.
+    """
+
+    df_imp = df.copy()
+    initial_rows = len(df_imp)
+    
+    # Tenemos la fórmula: Total Spent = Price Per Unit * Quantity.
+    # Si falta total_spent calcular si tenemos price_per_unit y quantity.
+    df_imp["total_spent"] = df_imp["total_spent"].fillna(
+        df_imp["price_per_unit"] * df_imp["quantity"]
+    )
+    
+    # Si falta price_per_unit calcular si tenemos total_spent y quantity.
+    df_imp["price_per_unit"] = df_imp["price_per_unit"].fillna(
+        df_imp["total_spent"] / df_imp["quantity"]
+    )
+    
+    # Imputación Categórica
+    categorical_fills = {
+        "payment_method": "Unknown",
+        "location": "Unknown"
+    }
+    
+    df_imp = df_imp.fillna(categorical_fills)
+    
+
+    # Sanity Check
+    # Eliminamos si:
+    # - No hay Fecha (Esencial para Time Series)
+    # - No hay ID (Esencial para conteo)
+    # - Siguen faltando datos financieros (Price/Total/Qty) después de imputar
+    critical_cols = ["transaction_id", "transaction_date", "quantity", "price_per_unit", "total_spent"]
+    
+    df_imp = df_imp.dropna(subset=critical_cols)
+    
+    dropped_rows = initial_rows - len(df_imp)
+    
+    if dropped_rows > 0:
+        logging.warning(f"Se eliminaron {dropped_rows} filas ({dropped_rows/initial_rows:.2%}) por falta de datos críticos.")
+    else:
+        logging.info("No se perdieron datos en la etapa de imputación.")
+    
+    return df_imp
