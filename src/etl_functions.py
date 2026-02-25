@@ -136,3 +136,24 @@ def impute_data(df: pd.DataFrame) -> pd.DataFrame:
         logging.info("No se perdieron datos en la etapa de imputación.")
     
     return df_imp
+
+def temporal_features(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Agrega nuevas dimensiones temporales al dataframe basándose en la fecha de transacción.
+    
+    :param df: DataFrame con la columna 'transaction_date' en formato datetime.
+    :return: DataFrame enriquecido con day_of_week, is_weekend y month_name.
+    """
+    
+    data = df.copy()
+    
+    # Extraemos características temporales
+    data["day_of_week"] = data["transaction_date"].dt.day_name()
+    data["month_name"] = data["transaction_date"].dt.month_name()
+
+    # Lógica booleana optimizada para fines de semana (5=Sábado, 6=Domingo)    
+    data["is_weekend"] = data["transaction_date"].dt.dayofweek >= 5
+    
+    logging.info(f"Feature Engineering completado. Nuevas columnas creadas. Total columnas: {len(data.columns)}")
+    
+    return data
