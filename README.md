@@ -18,9 +18,9 @@ El objetivo principal es aplicar buenas prácticas de ingeniería de software (C
 cafe_etl_project/
 │
 ├── data/
-│   ├── raw/             # Dataset original (dirty_cafe_sales.csv)
-│   ├── processed/       # Datos limpios intermedios
-│   └── final/           # Tablas dimensionales (Parquet/CSV)
+│   ├── bronze/          # Dataset original (dirty_cafe_sales.csv)
+│   ├── silver/          # Datos limpios intermedios
+│   └── gold/            # Tablas dimensionales (duckDB)
 │
 ├── notebooks/           # Experimentación y EDA
 │   └── 01_eda_ingestion.ipynb
