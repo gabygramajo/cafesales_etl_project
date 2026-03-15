@@ -8,7 +8,7 @@
 
 ## 📖 Sobre el Proyecto
 
-Este proyecto simula un escenario real de **Data Engineering**: recibir un dataset "sucio" de ventas de una cadena de cafeterías, limpiarlo, modelarlo y construir un pipeline ETL robusto para alimentar un dashboard de negocio.
+Este proyecto simula un escenario real de **Data Engineering**: recibir un dataset con datos, crudos y sin procesar, de ventas de una cadena de cafeterías. El objetivo es realizar un pipeline ETL para limpiar y modelar que finalmente alimentarán un dashboard de negocio.
 
 El objetivo principal es aplicar buenas prácticas de ingeniería de software (Clean Code, Type Hinting, Modularidad) al análisis de datos, alejándose de los scripts desordenados y acercándose a código listo para producción.
 
